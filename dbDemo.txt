@@ -1,0 +1,1395 @@
+USE [master]
+GO
+/****** Object:  Database [coreDemo]    Script Date: 12/13/2023 11:46:03 AM ******/
+CREATE DATABASE [coreDemo]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'coreDemo', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\coreDemo.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'coreDemo_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\coreDemo_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [coreDemo] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [coreDemo].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [coreDemo] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [coreDemo] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [coreDemo] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [coreDemo] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [coreDemo] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [coreDemo] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [coreDemo] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [coreDemo] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [coreDemo] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [coreDemo] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [coreDemo] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [coreDemo] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [coreDemo] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [coreDemo] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [coreDemo] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [coreDemo] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [coreDemo] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [coreDemo] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [coreDemo] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [coreDemo] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [coreDemo] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [coreDemo] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [coreDemo] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [coreDemo] SET  MULTI_USER 
+GO
+ALTER DATABASE [coreDemo] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [coreDemo] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [coreDemo] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [coreDemo] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [coreDemo] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [coreDemo] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [coreDemo] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [coreDemo] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [coreDemo]
+GO
+/****** Object:  Table [dbo].[Cities]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cities](
+	[CityId] [int] NOT NULL,
+	[CityName] [nvarchar](100) NULL,
+	[StateId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CityId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[client_table]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[client_table](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[projectClient] [varchar](50) NULL,
+	[projectStatus] [varchar](50) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[College_Master]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[College_Master](
+	[clg_id] [int] IDENTITY(1,1) NOT NULL,
+	[collegeName] [varchar](50) NULL,
+	[StudenName] [int] NULL,
+	[branchName] [int] NULL,
+	[RoleDesignation] [int] NULL,
+	[fees] [decimal](18, 2) NULL,
+	[AddmissionDate] [datetime] NULL,
+	[Is_Payment] [bit] NULL,
+	[Is_active] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[clg_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Countries]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Countries](
+	[CountryId] [int] NOT NULL,
+	[CountryName] [nvarchar](100) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CountryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Department]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Department](
+	[branchId] [int] IDENTITY(1,1) NOT NULL,
+	[branchName] [nvarchar](50) NULL,
+	[hodName] [nvarchar](50) NULL,
+	[isActive] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[branchId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DepartmentsTbl]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DepartmentsTbl](
+	[Depno] [int] NOT NULL,
+	[Dname] [varchar](50) NOT NULL,
+	[Loc] [varchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EmployeeTbl]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EmployeeTbl](
+	[Empno] [int] NOT NULL,
+	[Ename] [varchar](50) NOT NULL,
+	[Job] [varchar](50) NOT NULL,
+	[Salary] [int] NOT NULL,
+	[Deptno] [int] NOT NULL,
+ CONSTRAINT [PK_EmployeeTbl] PRIMARY KEY CLUSTERED 
+(
+	[Empno] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EmpProjectTasksTbl]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EmpProjectTasksTbl](
+	[Project_ID] [int] NOT NULL,
+	[Empno] [int] NOT NULL,
+	[Start_Date] [date] NOT NULL,
+	[End_Date] [date] NOT NULL,
+	[Task] [varchar](50) NOT NULL,
+	[Status] [varchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderTable]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderTable](
+	[OrderId] [int] IDENTITY(1,1) NOT NULL,
+	[ProductName] [int] NOT NULL,
+	[OrderDate] [date] NOT NULL,
+	[OrderStatus] [bit] NOT NULL,
+	[name] [int] NOT NULL,
+	[address] [int] NOT NULL,
+ CONSTRAINT [PK_OrderTable] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product_Table]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product_Table](
+	[ProductId] [int] IDENTITY(1,1) NOT NULL,
+	[ProductName] [varchar](50) NOT NULL,
+	[ProductPrice] [float] NOT NULL,
+ CONSTRAINT [PK_Product_Table] PRIMARY KEY CLUSTERED 
+(
+	[ProductId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[project_table]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[project_table](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[projectName] [varchar](50) NULL,
+	[fromDate] [varchar](50) NULL,
+	[toDate] [varchar](50) NULL,
+	[leaderName] [varchar](50) NULL,
+	[projectStatus] [varchar](50) NULL,
+	[projectClient] [varchar](50) NULL,
+ CONSTRAINT [PK_project_table] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ProjectsTbl]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ProjectsTbl](
+	[Project_ID] [int] NOT NULL,
+	[Descr] [varchar](50) NOT NULL,
+	[Start_Date] [date] NOT NULL,
+	[Planned_End_Date] [date] NOT NULL,
+	[Actual_End_date] [date] NULL,
+	[Budget] [int] NOT NULL,
+	[Client_ID] [int] NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Role_master]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Role_master](
+	[Role_id] [int] IDENTITY(1,1) NOT NULL,
+	[Role_name] [nvarchar](50) NULL,
+	[Role_designation] [varchar](50) NULL,
+	[created_date] [date] NULL,
+	[Is_active] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Role_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SignUpTable]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SignUpTable](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[address] [nvarchar](50) NOT NULL,
+	[userId] [nvarchar](50) NOT NULL,
+	[encryptedPassword] [nvarchar](50) NOT NULL,
+	[decryptedPassword] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_SignUpTable] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[States]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[States](
+	[StateId] [int] NOT NULL,
+	[StateName] [nvarchar](100) NULL,
+	[CountryId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[StateId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Student]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Student](
+	[studentId] [int] IDENTITY(1,1) NOT NULL,
+	[firstName] [nvarchar](50) NULL,
+	[session] [nvarchar](50) NULL,
+	[email] [nvarchar](50) NULL,
+	[phoneNo] [int] NULL,
+	[isDeleted] [bit] NULL,
+	[isActive] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[studentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[student_table]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[student_table](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NULL,
+	[department] [nvarchar](50) NULL,
+	[status] [bit] NULL,
+	[joindate] [datetime] NULL,
+	[rollno] [int] NULL,
+ CONSTRAINT [PK_student_table] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Student1]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Student1](
+	[Name] [varchar](100) NULL,
+	[DOB] [varchar](100) NULL,
+	[Age] [int] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StudentJsonData]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StudentJsonData](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[JsonData] [nvarchar](max) NULL,
+	[InsertedAt] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_signup]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_signup](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[userId] [nvarchar](50) NOT NULL,
+	[encryptedPassword] [nvarchar](50) NOT NULL,
+	[decryptedPassword] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tbl_signup] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_table]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_table](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [varchar](50) NULL,
+	[password] [nvarchar](50) NULL,
+	[status] [bit] NULL,
+ CONSTRAINT [PK_user_table] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[StudentJsonData] ADD  DEFAULT (getdate()) FOR [InsertedAt]
+GO
+ALTER TABLE [dbo].[Cities]  WITH CHECK ADD FOREIGN KEY([StateId])
+REFERENCES [dbo].[States] ([StateId])
+GO
+ALTER TABLE [dbo].[College_Master]  WITH CHECK ADD FOREIGN KEY([branchName])
+REFERENCES [dbo].[Department] ([branchId])
+GO
+ALTER TABLE [dbo].[College_Master]  WITH CHECK ADD FOREIGN KEY([RoleDesignation])
+REFERENCES [dbo].[Role_master] ([Role_id])
+GO
+ALTER TABLE [dbo].[College_Master]  WITH CHECK ADD FOREIGN KEY([StudenName])
+REFERENCES [dbo].[Student] ([studentId])
+GO
+ALTER TABLE [dbo].[States]  WITH CHECK ADD FOREIGN KEY([CountryId])
+REFERENCES [dbo].[Countries] ([CountryId])
+GO
+/****** Object:  StoredProcedure [dbo].[delete_Student]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[delete_Student]
+@studentId int
+AS
+BEGIN
+	delete from student where studentId=@studentId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[deleteCollege]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[deleteCollege]
+@clg_id int
+AS
+BEGIN
+	delete from College_Master where clg_id=@clg_id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[deleteDepartment]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[deleteDepartment]
+@branchId int
+AS
+BEGIN
+	delete from Department where branchId=@branchId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[deleteOrder]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[deleteOrder]
+@OrderId int
+AS
+BEGIN
+	delete from OrderTable where OrderId=@OrderId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[deleteProject]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[deleteProject]
+@id int
+AS
+BEGIN
+	delete from project_table where id=@id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[deleteRole]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[deleteRole]
+@Role_id int
+AS
+BEGIN
+	delete from Role_master where Role_id=@Role_id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[deletestudent]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[deletestudent]
+@Id int
+AS
+BEGIN
+	delete from student_table where id=@Id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[get_CollegeById]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[get_CollegeById] 
+@clg_id INT
+AS
+BEGIN
+    SELECT
+        C.clg_id,
+        C.CollegeName,
+		C.fees,
+		C.AddmissionDate,
+		C.Is_Payment,
+		c.Is_active,
+		S.firstName,
+        D.branchName,
+		R.Role_designation
+        
+    FROM
+        College_Master C
+    INNER JOIN
+        Department D ON D.branchId = C.branchName
+   INNER JOIN
+        Role_master R ON R.Role_id = C.RoleDesignation
+	INNER JOIN
+	    student S ON S.studentId = C.StudenName
+		WHERE
+        C.clg_id = @clg_id; 
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[get_DepartmentById]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[get_DepartmentById]
+@branchId int
+AS
+BEGIN
+	select * from Department where branchId=@branchId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[get_ProductById]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[get_ProductById]
+@ProductId int
+AS
+BEGIN
+	select * from Product_Table where ProductId=@ProductId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[get_RoleById]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[get_RoleById]
+@Role_id int
+AS
+BEGIN
+	select * from Role_master where Role_id=@Role_id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[get_StudentById]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[get_StudentById]
+@studentId int
+AS
+BEGIN
+	select * from student where studentId=@studentId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetcityByState]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetcityByState]
+
+    @StateId INT = NULL
+
+AS
+
+BEGIN
+
+    IF @StateId  = 0
+
+    BEGIN
+
+        -- Return all states if CountryId is not provided
+
+       select CityId, CityName from Cities 
+
+    END
+
+    ELSE
+
+    BEGIN
+
+        -- Return states based on the specified CountryId
+
+       select CityId, CityName from Cities where StateId=@StateId
+
+    END
+
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[GetDepartmentList]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetDepartmentList]
+AS
+BEGIN
+    SELECT *
+    FROM Department;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[GetEmail]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetEmail]    
+    @id INT
+AS
+BEGIN
+    SELECT userId
+    FROM SignUpTable
+    WHERE id = @id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetNameList]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetNameList]
+AS
+BEGIN
+    select id,name from SignUpTable;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[getOrderData]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[getOrderData] 
+AS
+BEGIN
+    SELECT
+        O.OrderId,
+        O.OrderDate,
+		O.OrderStatus,
+		P.ProductName,
+		S.name,
+		C.CityName
+        
+    FROM
+        OrderTable O
+    INNER JOIN
+        Product_Table P ON P.ProductId = O.ProductName
+   INNER JOIN
+        SignUpTable S ON S.id = O.name
+	INNER JOIN
+        Cities C ON C.CityId = O.address
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[GetProductList]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[GetProductList]
+AS
+BEGIN
+    SELECT *
+    FROM Product_Table;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[getProjectById]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[getProjectById]
+@id int
+AS
+BEGIN
+	select * from project_table where id=@id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetProjects]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetProjects]
+AS
+BEGIN
+    SELECT * FROM project_table;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[GetRoleCount]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetRoleCount]
+    @Role_name NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT COUNT(*) AS RoleCount
+    FROM Role_master
+    WHERE Role_name = @Role_name;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[GetRoleList]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetRoleList]
+AS
+BEGIN
+    SELECT *
+    FROM Role_master;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[GetStatesByCountry]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetStatesByCountry]
+
+    @CountryId INT = NULL
+
+AS
+
+BEGIN
+
+    IF @CountryId =0
+
+    BEGIN
+
+        -- Return all states if CountryId is not provided
+
+        SELECT StateId, StateName
+
+        FROM States;
+
+    END
+
+    ELSE
+
+    BEGIN
+
+        -- Return states based on the specified CountryId
+
+        SELECT StateId, StateName
+
+        FROM States
+
+        WHERE CountryId = @CountryId;
+
+    END
+
+END;
+
+GO
+/****** Object:  StoredProcedure [dbo].[getstudentbyid]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[getstudentbyid]
+@Id int
+AS
+BEGIN
+	select * from student_table where id=@Id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudentJsonData]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetStudentJsonData]
+AS
+BEGIN
+    SELECT JsonData
+    FROM StudentJsonData
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudentList]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[GetStudentList]
+AS
+BEGIN
+    SELECT *
+    FROM student;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[getTableData]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[getTableData]
+  
+AS
+BEGIN
+    SELECT
+        C.clg_id,
+        C.CollegeName,
+		C.fees,
+		C.AddmissionDate,
+		C.Is_Payment,
+		c.Is_active,
+		S.firstName,
+        D.branchName,
+		R.Role_designation
+        
+    FROM
+        College_Master C
+    INNER JOIN
+        Department D ON D.branchId = C.branchName
+   INNER JOIN
+        Role_master R ON R.Role_id = C.RoleDesignation
+	INNER JOIN
+	    student S ON S.studentId = C.StudenName
+    
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[getuserbyid]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[getuserbyid]
+@Id int
+AS
+BEGIN
+	select * from user_table where id=@Id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[Insert_Student]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[Insert_Student]
+    @Name VARCHAR(100),
+    @DOB varchar(100),
+    @Age INT
+AS
+BEGIN
+    INSERT INTO Student1 (Name, DOB, Age)
+    VALUES (@Name, @DOB, @Age)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[InsertRole]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[InsertRole]
+    @Role_name NVARCHAR(50),
+    @Role_designation VARCHAR(50),
+    @created_date DATE,
+    @Is_active BIT
+AS
+BEGIN
+   
+
+    INSERT INTO Role_master (Role_name, Role_designation, created_date, Is_active)
+    VALUES (@Role_name, @Role_designation, @created_date, @Is_active);
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[InsertStudentJsonData]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[InsertStudentJsonData]
+    @JsonData NVARCHAR(MAX)
+AS
+BEGIN
+    INSERT INTO StudentJsonData (JsonData)
+    VALUES (@JsonData)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[save_College]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[save_College]
+
+    @CollegeName VARCHAR(50), @StudenName INT, @branchName INT, @RoleDesignation INT, 
+	@Fees DECIMAL(18, 2), @AdmissionDate DATETIME, @IsPayment BIT, @IsActive BIT
+
+AS
+
+BEGIN
+    INSERT INTO College_Master (
+        collegeName,StudenName,branchName,RoleDesignation,
+        fees, AddmissionDate, Is_Payment, Is_active
+    )
+
+    VALUES (
+
+        @CollegeName, @StudenName, @branchName, @RoleDesignation,
+		@Fees, @AdmissionDate, @IsPayment, @IsActive
+    );
+
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[save_Order]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[save_Order]
+     @ProductName INT, @OrderDate date, @OrderStatus bit, 
+	@name int, @address int
+AS
+BEGIN
+    INSERT INTO OrderTable (
+   ProductName,OrderDate,OrderStatus,
+        name, address
+    )
+    VALUES (
+        @ProductName, @OrderDate, @OrderStatus,
+		@name, @address
+    );
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[saveCollege]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[saveCollege]
+
+    @CollegeName VARCHAR(50), @StudenName INT, @branchName INT, @RoleDesignation INT, 
+	@Fees DECIMAL(18, 2), @AdmissionDate DATETIME, @IsPayment BIT, @IsActive BIT
+
+AS
+
+BEGIN
+    INSERT INTO College_Master (
+        collegeName,StudenName,branchName,RoleDesignation,
+        fees, AddmissionDate, Is_Payment, Is_active
+    )
+
+    VALUES (
+
+        @CollegeName, @StudenName, @branchName, @RoleDesignation,
+		@Fees, @AdmissionDate, @IsPayment, @IsActive
+    );
+
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[saveDepartment]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[saveDepartment]
+    @branchName NVARCHAR(50),
+    @hodName NVARCHAR(50),
+    @isActive BIT
+AS
+BEGIN
+    
+
+    INSERT INTO Department (branchName, hodName, isActive)
+    VALUES (@branchName, @hodName, @isActive);
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[savename]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[savename] 
+@name nvarchar(50)=null,
+@department nvarchar(50)=null,
+@joindate datetime=null,
+@status bit,
+@rollno int
+AS
+BEGIN
+	insert into student_table(name,department,status,joindate,rollno)
+	values (@name,@department,@status,@joindate,@rollno);
+END
+GO
+/****** Object:  StoredProcedure [dbo].[saveproject]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[saveproject] 
+@projectName varchar(50),
+@fromDate varchar(50),
+@toDate varchar(50),
+@leaderName varchar(50),
+@projectStatus varchar(50),
+@projectClient varchar(50)
+AS
+BEGIN
+	insert into project_table(projectName,fromDate,toDate,leaderName,projectStatus,projectClient)
+	values (@projectName,@fromDate,@toDate,@leaderName,@projectStatus,@projectClient);
+END
+GO
+/****** Object:  StoredProcedure [dbo].[saveStudent]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[saveStudent]
+    @firstName NVARCHAR(50),
+    @session NVARCHAR(50),
+    @email NVARCHAR(50),
+    @phoneNo INT,
+    @isDeleted BIT,
+    @isActive BIT
+AS
+BEGIN
+    
+
+    INSERT INTO Student (firstName, session, email, phoneNo, isDeleted, isActive)
+    VALUES (@firstName, @session, @email, @phoneNo, @isDeleted, @isActive);
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[saveuser]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[saveuser] 
+@name varchar(50)=null,
+@password nvarchar(50)=null,
+@status bit
+AS
+BEGIN
+	insert into user_table(name,password,status)
+	values (@name,@password,@status);
+END
+GO
+/****** Object:  StoredProcedure [dbo].[signUp]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[signUp]
+@name nvarchar(50),
+@userId nvarchar(50),
+@encryptedPassword nvarchar(50),
+@decryptedPassword nvarchar(50)
+AS
+BEGIN
+	insert into tbl_signup(name,userId,encryptedPassword,decryptedPassword)
+	values (@name,@userId,@encryptedPassword,@decryptedPassword);
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SignUpUser]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SignUpUser]
+@name nvarchar(50),
+@address nvarchar(50),
+@userId nvarchar(50),
+@encryptedPassword nvarchar(50),
+@decryptedPassword nvarchar(50)
+AS
+BEGIN
+	insert into SignUpTable(name,address,userId,encryptedPassword,decryptedPassword)
+	values (@name,@address,@userId,@encryptedPassword,@decryptedPassword);
+END
+GO
+/****** Object:  StoredProcedure [dbo].[table_data]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[table_data]
+    @clg_id INT
+AS
+BEGIN
+    SELECT
+        C.clg_id,
+        C.CollegeName,
+        D.branchName,
+		R.Role_designation
+        
+    FROM
+        College_Master C
+    JOIN
+        Department D ON D.branchId = D.branchId
+    JOIN
+        Role_master R ON R.Role_id = R.Role_id
+    WHERE
+        C.clg_id = @clg_id;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[update_Student]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[update_Student]
+@studentId int,
+@firstName nvarchar(50),
+@session nvarchar(50),
+@email nvarchar(50),
+@phoneNo int,
+@isDeleted bit,
+@isActive bit
+AS
+BEGIN
+	update student
+	SET
+	firstName=@firstName,
+	session=@session,
+	email=@email,
+	phoneNo=@phoneNo,
+	isDeleted=@isDeleted,
+	isActive=@isActive
+	where studentId=@studentId
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[updateCollege]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[updateCollege]
+    @clg_id INT, -- Add the parameter for the college ID
+    @CollegeName VARCHAR(50),
+    @StudenName INT,
+    @branchName INT,
+    @RoleDesignation INT,
+    @Fees DECIMAL(18, 2),
+    @AdmissionDate DATETIME,
+    @IsPayment BIT,
+    @IsActive BIT
+AS
+BEGIN
+    UPDATE College_Master
+    SET
+        collegeName = @CollegeName,
+        StudenName = @StudenName,
+        branchName = @branchName,
+        RoleDesignation = @RoleDesignation,
+        fees = @Fees,
+        AddmissionDate = @AdmissionDate,
+        Is_Payment = @IsPayment,
+        Is_active = @IsActive
+    WHERE
+        clg_ID = @clg_ID;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[updateDepartment]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[updateDepartment]
+@branchId int,
+@branchName nvarchar(50),
+@hodName nvarchar(50),
+@isActive bit
+AS
+BEGIN
+	update Department
+	SET
+	branchName=@branchName,
+	hodName=@hodName,
+	isActive=@isActive
+	where branchId=@branchId
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[updateproject]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[updateproject]
+@id int,
+@projectName varchar(50),
+@fromDate varchar(50),
+@toDate varchar(50),
+@leaderName varchar(50),
+@projectStatus varchar(50),
+@projectClient varchar(50)
+AS
+BEGIN
+	update project_table
+	SET
+	projectName=@projectName,
+	fromDate=@fromDate,
+	toDate=@toDate,
+	leaderName=@leaderName,
+	projectStatus=@projectStatus,
+	projectClient=@projectClient
+	where id=@id
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[updateRole]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[updateRole]
+@Role_id int,
+@Role_name nvarchar(50),
+@Role_designation varchar(50),
+@created_date date,
+@Is_active bit
+AS
+BEGIN
+	update Role_master
+	SET
+	Role_name=@Role_name,
+	Role_designation=@Role_designation,
+	created_date=@created_date,
+	Is_active=@Is_active
+	where Role_id=@Role_id
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[updatestudent]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[updatestudent]
+@Id int,
+@name nvarchar(50) ,
+@department nvarchar(50) ,
+@joindate datetime ,
+@rollno int,
+@status bit
+AS
+BEGIN
+    UPDATE student_table
+    SET
+        name = @name,
+        department = @department,
+        joindate = @joindate,
+        status = @status,
+		rollno=@rollno
+    WHERE id = @Id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[Validate_Login]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[Validate_Login]
+
+    @userId NVARCHAR(50),
+
+    @decryptedPassword NVARCHAR(50)
+
+AS
+
+BEGIN
+
+    IF EXISTS (
+
+        SELECT 1
+
+        FROM SignUpTable
+
+        WHERE userId = @userId
+
+        AND decryptedPassword = @decryptedPassword
+
+    )
+
+    BEGIN
+
+        SELECT
+
+            su.id,
+            su.name,
+		    su.address,
+
+            su.userId
+
+        FROM SignUpTable su
+
+        WHERE su.userId = @userId
+
+            AND su.decryptedPassword = @decryptedPassword;
+
+    END
+
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ValidateLogin]    Script Date: 12/13/2023 11:46:03 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ValidateLogin]
+
+    @userId NVARCHAR(50),
+
+    @decryptedPassword NVARCHAR(50)
+
+AS
+
+BEGIN
+
+    IF EXISTS (
+
+        SELECT 1
+
+        FROM tbl_signup
+
+        WHERE userId = @userId
+
+        AND decryptedPassword = @decryptedPassword
+
+    )
+
+    BEGIN
+
+        SELECT
+
+            su.id,
+
+            su.name,
+
+            su.userId
+
+        FROM tbl_signup su
+
+        WHERE su.userId = @userId
+
+            AND su.decryptedPassword = @decryptedPassword;
+
+    END
+
+END;
+GO
+USE [master]
+GO
+ALTER DATABASE [coreDemo] SET  READ_WRITE 
+GO
